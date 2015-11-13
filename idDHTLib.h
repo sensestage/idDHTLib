@@ -20,6 +20,10 @@
 		v 0.0.3
 			Timing correction to finally work properly on DHT22
 			(Dessimat0r from Arduino forum)
+			
+		v 0.0.4
+			* Improvements by sensestage to get rawData (usscefull for transmitting the data).
+			* Optimization by nsanz. Extract some calcs from interruption.
  */
 
 #ifndef idDHTLib_H__
@@ -49,7 +53,8 @@
 #define IDDHTLIB_CHECK_STATE		if(state == STOPPED)			\
 						return status;			\
 					else if(state != ACQUIRED)		\
-						return IDDHTLIB_ERROR_ACQUIRING;
+						return IDDHTLIB_ERROR_ACQUIRING;		\
+					updateValues();
 									
 class idDHTLib
 {
@@ -63,6 +68,7 @@ public:
 	float getCelsius();
 	float getFahrenheit();
 	float getKelvin();
+	void updateValues();
 	double getDewPoint();
 	double getDewPointSlow();
 	float getHumidity();
